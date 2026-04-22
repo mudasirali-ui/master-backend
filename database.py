@@ -9,7 +9,8 @@ def _connect():
     return psycopg2.connect(
         os.getenv("DATABASE_URL"),
         cursor_factory=RealDictCursor,
-        sslmode="require"
+        sslmode="require",
+        connect_timeout=10
     )
 
 def init_db():
