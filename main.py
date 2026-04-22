@@ -29,6 +29,16 @@ app.add_middleware(
 app.include_router(contact.router)
 app.include_router(auth.router)
 
+@app.get("/")
+def root():
+    return {
+        "status": "ok",
+        "api": "master-backend",
+        "message": "Backend is running.",
+        "health": "/health",
+        "docs": "/docs",
+    }
+
 @app.get("/health")
 def health():
     return {"status": "ok", "api": "master-backend"}
