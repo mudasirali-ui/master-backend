@@ -1,0 +1,17 @@
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def get_db():
+    conn = psycopg2.connect(
+        os.getenv("DATABASE_URL"),
+        cursor_factory=RealDictCursor,
+        sslmode="require"
+    )
+    try:
+        yield conn
+    finally:
+        conn.close()
