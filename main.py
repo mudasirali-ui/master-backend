@@ -34,7 +34,10 @@ app.include_router(auth.router)
 
 @app.on_event("startup")
 def bootstrap_database():
-    init_db()
+    try:
+        init_db()
+    except Exception as e:
+        print(f"DB init failed: {e}")
 
 @app.get("/")
 def root():

@@ -14,8 +14,8 @@ def _connect():
     )
 
 def init_db():
-    conn = _connect()
     try:
+        conn = _connect()
         cur = conn.cursor()
         cur.execute("CREATE EXTENSION IF NOT EXISTS pgcrypto;")
 
@@ -64,8 +64,11 @@ def init_db():
         )
 
         conn.commit()
-    finally:
+        cur.close()
         conn.close()
+        print("Database initialized successfully")
+    except Exception as e:
+        print(f"Database init warning: {e}")
 
 def get_db():
     conn = _connect()
